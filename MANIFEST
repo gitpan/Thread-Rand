@@ -6,4 +6,6 @@ VERSION
 Makefile.PL
 lib/Thread/Rand.pm
 lib/Thread/Rand/Thread.pm
-t/Rand.t
+t/Rand01.t
+t/Rand02.t
+t/randtest

@@ -1,2 +1,12 @@
+0.02	5 September 2002
+	Added class method "global" to hijack the rand() and srand() functions
+	globally.  This to circumvent the bug in rand() and threads I found
+	today.  Added documentation and test-suite for this
+
+	Added support for AutoLoader.
+
+	2 September 2002
+	Fixed tiny nit/optimization in sub and().
+
 0.01	1 September 2002
 	First version of Thread::Rand.

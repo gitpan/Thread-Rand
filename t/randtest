@@ -1,22 +1,4 @@
-BEGIN {				# Magic Perl CORE pragma
-    if ($ENV{PERL_CORE}) {
-        chdir 't' if -d 't';
-        @INC = '../lib';
-    }
-}
-
-use Test::More tests => 11;
-use strict;
-
-BEGIN {use_ok( 'Thread::Rand',qw(rand srand) )}
-
-can_ok( 'Thread::Rand',qw(
- import
- rand
- srand
-) );
-
-my $times = 10000;
+my $times = 10;
 my $srand = 12345678;
 my @local;
 my @shared : shared;
@@ -60,3 +42,5 @@ $_->join foreach @thread;
 
 cmp_ok( scalar(@shared),'==',$times,	'check length of array' );
 is( join('',@shared),join('',@local),	'compare result different threads' );
+
+1;
