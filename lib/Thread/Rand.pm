@@ -7,7 +7,7 @@ use Thread::Tie ();
 # Make sure we have version info for this module
 # Make sure we do everything by the book from now on
 
-our $VERSION : unique = '0.02';
+our $VERSION : unique = '0.03';
 use strict;
 
 # Make sure we only load stuff when we actually need it
@@ -120,10 +120,6 @@ The Thread::Rand module allows you to create repeatable random sequences
 between different threads.  Without it, repeatable random sequences can
 only be created B<within> a thread.
 
-The Thread::Rand module also allows you to circumvent a bug with rand() when
-using threads (in perl 5.8.0), which causes threads to have identical random
-number sequences if rand() was used in the parent thread.
-
 =head1 SUBROUTINES
 
 There are only two subroutines.
@@ -161,13 +157,19 @@ within a BEGIN {} block.
 
 A bug in Perl 5.8.0 causes random sequences to be identical in threads if the
 rand() function was called in the parent thread.  You can circumvent this
-problem with Thread::Rand and a call to the L<global> class method thus:
+problem by adding a CLONE subroutine thus:
+
+ sub CLONE { srand() } # needed for bug in 5.8.0
+
+This will make sure that each thread gets its own unique seed and therefore
+its own unique sequence of random numbers.  Alternately, you could also solve
+this with Thread::Rand and a call to the L<global> class method thus:
 
  use Thread::Rand ();
  BEGIN {Thread::Rand->global}
 
 You should however keep monitoring whether future versions of Perl will have
-this problem fixed.  You can then take these two lines out again.
+this problem fixed.  You can then take these circumventions out again.
 
 =head1 AUTHOR
 

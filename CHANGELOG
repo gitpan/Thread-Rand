@@ -1,7 +1,11 @@
+0.03	6 September 2002
+	Added alternate solution to the documentation to circumvent the rand()
+	problem with threads.  Suggested by Benjamin Goldberg.
+
 0.02	5 September 2002
 	Added class method "global" to hijack the rand() and srand() functions
 	globally.  This to circumvent the bug in rand() and threads I found
-	today.  Added documentation and test-suite for this
+	today.  Added documentation and test-suite for this.
 
 	Added support for AutoLoader.
 
