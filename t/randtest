@@ -4,16 +4,16 @@ my @local;
 my @shared : shared;
 
 my $random = int(rand($times));
-ok( $random>=0 and $random<$times,	'check range of number' );
+ok( ($random>=0 and $random<$times),	'check range of number' );
 
 $random = rand();
-ok( $random>=0 and $random<1,		'check range of number' );
+ok( ($random>=0 and $random<1),		'check range of number' );
 
 $random = rand(0);
-ok( $random>=0 and $random<1,		'check range of number' );
+ok( ($random>=0 and $random<1),		'check range of number' );
 
 $random = rand(undef);
-ok( $random>=0 and $random<1,		'check range of number' );
+ok( ($random>=0 and $random<1),		'check range of number' );
 
 CORE::srand( $srand );
 push( @local,CORE::rand() ) foreach 1..$times;

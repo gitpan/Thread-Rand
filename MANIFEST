@@ -9,3 +9,4 @@ lib/Thread/Rand/Thread.pm
 t/Rand01.t
 t/Rand02.t
 t/randtest
+META.yml                                Module meta-data (added by MakeMaker)

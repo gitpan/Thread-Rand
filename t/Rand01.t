@@ -7,6 +7,7 @@ BEGIN {				# Magic Perl CORE pragma
 
 use Test::More tests => 11;
 use strict;
+use warnings;
 
 BEGIN {use_ok( 'Thread::Rand',qw(rand srand) )}
 
