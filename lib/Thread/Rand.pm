@@ -7,7 +7,7 @@ use Thread::Tie ();
 # Make sure we have version info for this module
 # Make sure we do everything by the book from now on
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 use strict;
 
 # Make sure we only load stuff when we actually need it
@@ -154,6 +154,11 @@ The "global" class method allows you to replace the rand() and srand() system
 functions in all programs by the version supplied by Thread::Rand.  To ensure
 that the right subroutines are called, you B<must> call this class method from
 within a BEGIN {} block.
+
+=head1 REQUIRED MODULES
+
+ load (any)
+ Thread::Tie (0.09)
 
 =head1 CAVEATS
 

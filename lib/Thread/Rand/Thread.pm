@@ -2,7 +2,7 @@ package Thread::Rand::Thread;
 
 # Make sure we do everything by the book from now on
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 use strict;
 
 # Satisfy -require-
