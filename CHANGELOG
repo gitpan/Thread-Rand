@@ -1,3 +1,10 @@
+0.04    29 September 2002
+	Use "load.pm" instead of AutoLoader.  Increased dependency on
+	Thread::Tie to 0.08 in Makefile.PL.
+
+	Removed "our" from $VERSION, should shave off some bytes in
+	memory usage, as found from testing with Benchmark::Thread::Size.
+
 0.03	6 September 2002
 	Added alternate solution to the documentation to circumvent the rand()
 	problem with threads.  Suggested by Benjamin Goldberg.

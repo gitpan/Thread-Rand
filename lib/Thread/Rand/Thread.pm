@@ -2,7 +2,7 @@ package Thread::Rand::Thread;
 
 # Make sure we do everything by the book from now on
 
-our $VERSION : unique = '0.02';
+$VERSION = '0.04';
 use strict;
 
 # Satisfy -require-

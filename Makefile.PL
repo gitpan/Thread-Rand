@@ -9,6 +9,6 @@ WriteMakefile (
   ABSTRACT	=> 'repeatable random sequences between threads') : (),
  VERSION_FROM	=> 'lib/Thread/Rand.pm',
  PREREQ_PM	=> {
-		   Thread::Tie => '0.07',
+		   Thread::Tie => '0.08',
                    },
 );

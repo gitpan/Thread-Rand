@@ -7,12 +7,12 @@ use Thread::Tie ();
 # Make sure we have version info for this module
 # Make sure we do everything by the book from now on
 
-our $VERSION : unique = '0.03';
+$VERSION = '0.04';
 use strict;
 
 # Make sure we only load stuff when we actually need it
 
-use AutoLoader 'AUTOLOAD';
+use load;
 
 # Make sure we have something tied to the thread
 
@@ -48,7 +48,7 @@ sub srand { $RAND = shift } #srand
 
 #---------------------------------------------------------------------------
 
-# AutoLoader takes over from here
+# The following subroutines are loaded on demand only
 
 __END__
 
@@ -92,6 +92,8 @@ sub import {
 } #import
 
 #---------------------------------------------------------------------------
+
+__END__
 
 =head1 NAME
 
