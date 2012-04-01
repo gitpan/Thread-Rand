@@ -1,37 +1,37 @@
 package Thread::Rand::Thread;
 
-# Make sure we do everything by the book from now on
+# initializations
+$VERSION= '0.07';
 
-$VERSION = '0.06';
+# be as strict as possible
 use strict;
 
-# Satisfy -require-
-
+# satisfy -require-
 1;
 
-#---------------------------------------------------------------------------
-
-# standard Perl features
-
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#
+# Standard Perl Features
+#
+#-------------------------------------------------------------------------------
 #  IN: 1 class for which to bless
 # OUT: 1 instantiated object
 
-sub TIESCALAR { bless \*TIESCALAR,shift } #TIESCALAR
+sub TIESCALAR { bless \*TIESCALAR, shift } #TIESCALAR
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #  IN: 1 instantiated object (ignored)
 # OUT: 1 value
 
 sub FETCH { rand() } #FETCH
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #  IN: 1 instantiated object (ignored)
 #      2 new srand value
 
 sub STORE { srand( $_[1] ) } #STORE
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 __END__
 
@@ -51,7 +51,7 @@ Please report bugs to <perlbugs@dijkmat.nl>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2002-2003 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
+Copyright (c) 2002, 2003, 2012 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
 reserved.  This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 

@@ -1,94 +1,84 @@
 package Thread::Rand;
 
-# Start the Thread::Tie thread now if not already started (as clean as possible)
-
+# start the Thread::Tie thread now if not already started (as clean as possible)
 use Thread::Tie ();
 
-# Make sure we have version info for this module
-# Make sure we do everything by the book from now on
+# initializations
+$VERSION= '0.07';
 
-$VERSION = '0.06';
+# be as strict as possble
 use strict;
 
-# Make sure we only load stuff when we actually need it
-
+# modules that we need
 use load;
 
 # Make sure we have something tied to the thread
+tie my $RAND, 'Thread::Tie', { module => 'Thread::Rand::Thread' };
 
-tie my $RAND,'Thread::Tie',{module => 'Thread::Rand::Thread'};
-
-# Satisfy -require-
-
+# satisfy -require-
 1;
 
-#---------------------------------------------------------------------------
-
-# exportable subroutines
-
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#
+# Exportable Subroutines
+#
+#-------------------------------------------------------------------------------
 #  IN: 1 range for random value (default: 0..1)
 # OUT: 1 random value
 
 sub rand {
-
-# Obtain random value between 0 and 1
-# Return now if no range
-# Adapt to range if appropriate and return that
-
-    my $rand = $RAND;
-    return $rand unless defined($_[0]);
-    $rand * (shift || 1);
+    my $rand= $RAND;
+    return defined( $_[0] )
+      ? $rand * ( shift || 1 )
+      : $rand;
 } #rand
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #  IN: 1 new value for seed
 
-sub srand { $RAND = shift } #srand
+sub srand { $RAND= shift } #srand
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # The following subroutines are loaded on demand only
 
 __END__
 
-#---------------------------------------------------------------------------
-
-# class methods
-
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+#
+# Class Methods
+#
+#-------------------------------------------------------------------------------
+# global
+#
+# hijack rand/srand
 
 sub global {
-
-# Allow for dirty tricks
-# Hijack rand()
-# Hijack srand()
-
     no strict 'refs';
-    *CORE::GLOBAL::rand  = \&rand;
-    *CORE::GLOBAL::srand = \&srand;
+    *CORE::GLOBAL::rand=  \&rand;
+    *CORE::GLOBAL::srand= \&srand;
 } #global
 
-#---------------------------------------------------------------------------
-
+#-------------------------------------------------------------------------------
+#
 # standard Perl features
-
-#---------------------------------------------------------------------------
-#  IN: class (ignored)
+#
+#-------------------------------------------------------------------------------
+#  IN: 1 class (ignored)
+#      2 .. N subs to import
 
 sub import {
-
-# Lose the class
-# Obtain the namespace
-# Obtain the names of the subroutines to export
-# Allow for dirty tricks
-# Export all subroutines specified
-
     shift;
-    my $namespace = caller().'::';
-    @_ = qw(rand seed) unless @_;
+
+    # set namespace and subs
+    my $namespace= caller().'::';
+    @_= qw( rand seed ) if !@_;
+
+    # export the subs
     no strict 'refs';
-    *{$namespace.$_} = \&$_ foreach @_;
+    *{$namespace.$_}= \&$_ foreach @_;
+
+    return;
 } #import
 
 #---------------------------------------------------------------------------
@@ -99,13 +89,17 @@ __END__
 
 Thread::Rand - repeatable random sequences between threads
 
+=head1 VERSION
+
+This documentation describes version 0.07.
+
 =head1 SYNOPSIS
 
-  use Thread::Rand;             # exports rand() and srand()
+  use Thread::Rand;               # exports rand() and srand()
 
-  use Thread::Rand ();          # must call fully qualified subs
+  use Thread::Rand ();            # must call fully qualified subs
 
-  BEGIN {Thread::Rand->global}  # replace rand() and srand() globally
+  BEGIN { Thread::Rand->global }  # replace rand() and srand() globally
 
 =head1 DESCRIPTION
 
@@ -128,9 +122,9 @@ There are only two subroutines.
 
 =head2 rand
 
- my $value = rand();          # a value between 0 and 1
+ my $value = rand();        # a value between 0 and 1
 
- my $value = rand( number );  # a value between 0 and number-1 inclusive
+ my $value = rand(number);  # a value between 0 and number-1 inclusive
 
 The "rand" subroutine functions exactly the same as the normal rand() function.
 
@@ -148,7 +142,7 @@ There is one class method.
 =head2 global
 
  use Thread::Rand ();
- BEGIN {Thread::Rand->global}
+ BEGIN { Thread::Rand->global }
 
 The "global" class method allows you to replace the rand() and srand() system
 functions in all programs by the version supplied by Thread::Rand.  To ensure
@@ -173,7 +167,7 @@ its own unique sequence of random numbers.  Alternately, you could also solve
 this with Thread::Rand and a call to the L<global> class method thus:
 
  use Thread::Rand ();
- BEGIN {Thread::Rand->global}
+ BEGIN { Thread::Rand->global }
 
 You should however keep monitoring whether future versions of Perl will have
 this problem fixed.  You can then take these circumventions out again.
@@ -186,7 +180,7 @@ Please report bugs to <perlbugs@dijkmat.nl>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2002-2003 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
+Copyright (c) 2002, 2003, 2012 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
 reserved.  This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 

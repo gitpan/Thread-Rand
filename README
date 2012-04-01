@@ -19,7 +19,8 @@ Required Modules:
  load (any)
  Thread::Tie (0.09)
 
-The build is standard:
+Version:
+ 0.07
 
 perl Makefile.PL
 make
